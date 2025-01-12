@@ -36,17 +36,16 @@ Each data type is tested against all four HTTP status codes mentioned above.
    ```
 
 ## Folder Structure
-lib/
-  ├── service/
-  │   ├── api_service.dart
-  │   └── api_service_impl.dart
-
-test/
-  ├── read_json.dart
-  ├── login/
-  │   └── login_mockito_test.dart
-  └── product/
-      └── product_mockito_test.dart
+lib/ 
+├── service/ 
+│ ├── api_service.dart 
+│ └── api_service_impl.dart 
+test/ 
+├── read_json.dart 
+├── login/ 
+│ └── login_mockito_test.dart 
+└── product/ 
+└── product_mockito_test.dart
 
 ## Dependencies
 - Mockito: For mocking objects and verifying interactions.
