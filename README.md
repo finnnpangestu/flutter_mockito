@@ -47,7 +47,7 @@ test/
 ├── login  
 │   └── login_mockito_test.dart  
 └── product  
-    └── product_mockito_test.dart  
+│   └── product_mockito_test.dart  
 
 
 ## Dependencies
