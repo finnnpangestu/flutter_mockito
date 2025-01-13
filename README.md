@@ -41,6 +41,15 @@ lib/
 ├── service  
 │   ├── api_service.dart  
 │   └── api_service_impl.dart  
+├── models  
+│   ├── auth 
+│   │   └── auth.dart
+│   ├── product
+│   │   └── product.dart
+│   ├── response
+│   │   └── response.dart
+│   ├── user
+│   │   └── user.dart
 
 test/  
 ├── read_json.dart  
