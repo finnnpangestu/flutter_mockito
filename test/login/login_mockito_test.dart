@@ -1,3 +1,5 @@
+import 'package:flutter_mockito/models/auth/auth.dart';
+import 'package:flutter_mockito/models/response/response.dart';
 import 'package:flutter_mockito/services/api_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,10 +18,14 @@ void main() {
 
   group('Login Test', () {
     test('login status 200', () async {
-      final request = await readJson('C:/Users/muham/Documents/Repository/flutter_mockito/json/login/login_200_request.json');
-      final response = await readJson('C:/Users/muham/Documents/Repository/flutter_mockito/json/login/login_200_response.json');
+      final request = await readJson('json/login/login_200_request.json');
+      final responseJson = await readJson('json/login/login_200_response.json');
+      final response = Response<Auth>(
+        message: responseJson['message'],
+        data: Auth.fromJson(responseJson['data']),
+      );
 
-      when(mockApiService.login(request['email']!, request['password']!)).thenAnswer((_) async => response);
+      when(mockApiService.login(request['email']!, request['password']!)).thenAnswer((_) async => Future.value(response));
 
       final result = await mockApiService.login(request['email']!, request['password']!);
 
@@ -29,37 +35,50 @@ void main() {
     });
 
     test('login status 400', () async {
-      final request = await readJson('C:/Users/muham/Documents/Repository/flutter_mockito/json/login/login_400_request.json');
-      final response = await readJson('C:/Users/muham/Documents/Repository/flutter_mockito/json/login/login_400_response.json');
+      final request = await readJson('json/login/login_400_request.json');
+      final responseJson = await readJson('json/login/login_400_response.json');
+      final response = Response<Auth>(
+        message: responseJson['message'],
+        error: responseJson['error'],
+      );
 
-      when(mockApiService.login(request['email']!, request['password']!)).thenThrow(Exception(response['message']));
+      when(mockApiService.login(request['email']!, request['password']!)).thenAnswer((_) async => Future.value(response));
 
-      expect(() => mockApiService.login(request['email']!, request['password']!),
-          throwsA(predicate((e) => e is Exception && e.toString().contains(response['message'] as String))));
+      final result = await mockApiService.login(request['email']!, request['password']!);
+
+      expect(result, response);
 
       verify(mockApiService.login(request['email']!, request['password']!)).called(1);
     });
 
     test('login status 404', () async {
-      final request = await readJson('C:/Users/muham/Documents/Repository/flutter_mockito/json/login/login_400_request.json');
-      final response = await readJson('C:/Users/muham/Documents/Repository/flutter_mockito/json/login/login_400_response.json');
+      final request = await readJson('json/login/login_404_request.json');
+      final responseJson = await readJson('json/login/login_404_response.json');
+      final response = Response<Auth>(
+        message: responseJson['message'],
+      );
 
-      when(mockApiService.login(request['email']!, request['password']!)).thenThrow(Exception(response['message']));
+      when(mockApiService.login(request['email']!, request['password']!)).thenAnswer((_) async => Future.value(response));
 
-      expect(() => mockApiService.login(request['email']!, request['password']!),
-          throwsA(predicate((e) => e is Exception && e.toString().contains(response['message'] as String))));
+      final result = await mockApiService.login(request['email']!, request['password']!);
+
+      expect(result, response);
 
       verify(mockApiService.login(request['email']!, request['password']!)).called(1);
     });
 
     test('login status 500', () async {
-      final request = await readJson('C:/Users/muham/Documents/Repository/flutter_mockito/json/login/login_500_request.json');
-      final response = await readJson('C:/Users/muham/Documents/Repository/flutter_mockito/json/login/login_500_response.json');
+      final request = await readJson('json/login/login_500_request.json');
+      final responseJson = await readJson('json/login/login_500_response.json');
+      final response = Response<Auth>(
+        message: responseJson['message'],
+      );
 
-      when(mockApiService.login(request['email']!, request['password']!)).thenThrow(Exception(response['message']));
+      when(mockApiService.login(request['email']!, request['password']!)).thenAnswer((_) async => Future.value(response));
 
-      expect(() => mockApiService.login(request['email']!, request['password']!),
-          throwsA(predicate((e) => e is Exception && e.toString().contains(response['message'] as String))));
+      final result = await mockApiService.login(request['email']!, request['password']!);
+
+      expect(result, response);
 
       verify(mockApiService.login(request['email']!, request['password']!)).called(1);
     });
